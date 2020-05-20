@@ -3,7 +3,7 @@ const moment = require('moment');
 
 function extractListingsFromHTML (html) {
   const $ = cheerio.load(html);
-  const vacancyRows = $('.field-item tbody tr');
+  const vacancyRows = $('tbody tr');
 
   const vacancies = [];
   var key = "counts";
@@ -17,8 +17,10 @@ function extractListingsFromHTML (html) {
     let current = $(el).children().first().next().text().trim();
     let previous = $(el).children().next().next().text().trim();
     //closing = moment(closing.slice(0, closing.indexOf('-') - 1), 'DD/MM/YYYY').toISOString();
-
-    vacancies.push({date, current, previous});
+    d =  new Date((date)).getTime();
+    if(d) {
+       vacancies.push({date, current, previous});
+    }
   });
   map[key] = vacancies;
   return map;
