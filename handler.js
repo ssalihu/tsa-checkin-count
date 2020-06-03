@@ -1,13 +1,23 @@
 'use strict';
 const AWS = require('aws-sdk');
-const request = require('axios');
+//const request = require('axios');
+const request = require('request')
 const { extractListingsFromHTML } = require('./helpers');
 const { sendSNS } = require('./sns');
 
 module.exports.gettsacount = (event, context, callback) => {
   const URL =  process.env.URL;
-  request(URL)
-    .then(({ data }) => {
+
+  let options = {
+      url: URL,
+      headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'
+      }
+  };
+
+  request(options,function(err,resp,data) {
+  //request(options,function(err,resp,html))
+   // .then(({ data }) => {
       // get reference to S3 client
       const s3 = new AWS.S3();
       try {
@@ -33,5 +43,5 @@ module.exports.gettsacount = (event, context, callback) => {
       }
       //callback(null, {buffer});
     })
-    .catch(callback);
+   // .catch(callback);
 };

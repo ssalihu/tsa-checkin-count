@@ -2,6 +2,7 @@ const cheerio = require('cheerio');
 const moment = require('moment');
 
 function extractListingsFromHTML (html) {
+
   const $ = cheerio.load(html);
   const vacancyRows = $('tbody tr');
 
