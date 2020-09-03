@@ -29,9 +29,13 @@ module.exports.gettsacount = (event, context, callback) => {
           ContentType: "text"
         };
 
-        const putResult = s3.putObject(destparams).promise();
         var count = buffer.counts.length;
         var msg = 'TSA info parsed and processed [' + count + '] entries. data: '+ JSON.stringify(buffer);
+        if(count && count > 0) {
+           const putResult = s3.putObject(destparams).promise();
+        } else {
+           msg = 'Unable to parse TSA covid data';
+        }
         sendSNS(msg);
         return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 
