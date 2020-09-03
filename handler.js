@@ -31,6 +31,7 @@ module.exports.gettsacount = (event, context, callback) => {
 
         var count = buffer.counts.length;
         var msg = 'TSA info parsed and processed [' + count + '] entries. data: '+ JSON.stringify(buffer);
+        console.log("Count is " + count);
         if(count && count > 0) {
            const putResult = s3.putObject(destparams).promise();
         } else {
