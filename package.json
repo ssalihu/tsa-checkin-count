@@ -16,6 +16,6 @@
     "hashmap": "^2.4.0",
     "moment": "^2.25.3",
     "request": "^2.88.2",
-    "serverless": "^1.72.0"
+    "serverless": "^1.83.0"
   }
 }
